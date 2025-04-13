@@ -11,6 +11,71 @@ Instructions for how to demo are located in the [demo script](./docs/demo-script
 
 This project provides a set of CRUD APIs for managing various entities as defined in the  [Entity-Relationship Diagram](./ERD.png). The entities include Supplier, Delivery, Order Detail Delivery, Product, Order Detail, Order, Branch, and Headquarters.
 
+## Data Model
+
+```mermaid
+erDiagram
+    Supplier {
+        number supplierId PK
+        string name
+        string description
+    }
+    Branch {
+        number branchId PK
+        string name
+        string description
+    }
+    Headquarters {
+        number headquartersId PK
+        string name
+        string description
+    }
+    Order {
+        number orderId PK
+        date orderDate
+        number headquartersId FK
+        string name
+        string description
+    }
+    OrderDetail {
+        number orderDetailId PK
+        number productId FK
+        number orderId FK
+        number productQuantity
+        string name
+        string description
+    }
+    Product {
+        number productId PK
+        number supplierId FK
+        number price
+        string name
+        string description
+    }
+    Delivery {
+        number deliveryId PK
+        date deliveryDate
+        number supplierId FK
+        string name
+        string description
+    }
+    OrderDetailDelivery {
+        number deliveryId FK
+        number orderId FK
+        number orderDetailId FK
+        string name
+        string description
+    }
+
+    Supplier ||--o{ Product : "supplies"
+    Supplier ||--o{ Delivery : "provides"
+    Product ||--o{ OrderDetail : "included in"
+    Order ||--o{ OrderDetail : "contains"
+    Headquarters ||--o{ Order : "manages"
+    OrderDetail ||--o{ OrderDetailDelivery : "delivered via"
+    Delivery ||--o{ OrderDetailDelivery : "contains"
+```
+
 ## Getting Started
 
 ### Prerequisites

@@ -3,4 +3,6 @@ export interface OrderDetail {
   productId: number;
   orderId: number;
   productQuantity: number;
+  name: string;
+  description: string;
 }
